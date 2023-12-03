@@ -10,20 +10,22 @@ import os
 import argparse
 import time
 import unittest
-from autoencoder_trainer import AutoencoderTrainer
+from autoencoder_trainer import autoencoder_trainer
+
 ts = time.strftime("%m_%d_%Y__%H")
 
 # Set up argument parsing for command line options
 parser = argparse.ArgumentParser(description='Training autoencoder')
 
 # Define command line arguments that the script accepts
-parser.add_argument('--dataset', help='Hyperspectral leaf reflectance dataset. Should be a compressed "gzip" file')
+parser.add_argument('--dataset', help='Hyperspectral leaf reflectance dataset. Should be a compressed "gzip" file', default = 'sample_data/sampledData_maize2020.csv.gz')
 parser.add_argument('--num_variables', help='Number of latent variables (reduced dimensions)', type=int, default=10)
-parser.add_argument('--epochs', help='Total number of training epochs', type=int, default=1000)
+parser.add_argument('--epochs', help='Total number of training epochs', type=int, default=100)
 parser.add_argument('--patience', help='Patience until early stopping', type=int, default=50)
 parser.add_argument('--learning_rate', help='Rate at which model is adapted to the problem. Value ranges between 0 and 1.', type=float, default=0.1)
 parser.add_argument('--random_seed', help='Random seed for model weight initialization', type=int, default=0)
 parser.add_argument('--prop_split', help='Proportion split of data for training set. Remaining portion allocated to validation data', type=float, default=0.8)
+parser.add_argument('--output_loc', help='Location of output files', type = str, default= 'tests')
 
 # Parse the arguments provided by the user
 args = parser.parse_args()
@@ -36,18 +38,20 @@ patience = args.patience
 learning_rate = args.learning_rate
 random_seed = args.random_seed
 prop_split = args.prop_split
+output_loc = args.output_loc
 
 
 class TestAutoencoderTrainer(unittest.TestCase):
     def setUp(self):
         # Setup code to run before each test method
-        self.trainer = AutoencoderTrainer(dataset_path=dataset_path,
+        self.trainer = autoencoder_trainer.AutoencoderTrainer(dataset_path=dataset_path,
                                      codings_size=codings_size,
                                      epochs=epochs,
                                      patience=patience,
                                      learning_rate=learning_rate,
                                      random_seed=random_seed,
                                      prop_split=prop_split,
+                                     output_loc=output_loc,
                                      ts=ts) 
 
     def test_preprocess(self):
@@ -66,9 +70,9 @@ class TestAutoencoderTrainer(unittest.TestCase):
         
     def test_file_output(self):
         self.trainer.train()
-        self.assertTrue(os.path.exists(f"weights_{self.trainer.ts}.h5"))
-        self.assertTrue(os.path.exists(f"model_{self.trainer.ts}.h5"))
-        self.assertTrue(os.path.exists(f"validation_loss_{self.trainer.ts}.csv"))
+        self.assertTrue(os.path.exists(f"{output_loc}/weights_{self.trainer.ts}.h5"))
+        self.assertTrue(os.path.exists(f"{output_loc}/model_{self.trainer.ts}.h5"))
+        self.assertTrue(os.path.exists(f"{output_loc}/validation_loss_{self.trainer.ts}.csv"))
 
 
 if __name__ == '__main__':

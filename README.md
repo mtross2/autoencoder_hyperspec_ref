@@ -47,7 +47,7 @@ Training the Model
 
     * Run the Training Script
         * Run the training script with default parameters or provide custom values.
-            python scripts/train_autoencoder.py --dataset sample_data/your_dataset_file.csv
+            python scripts/train_autoencoder.py --dataset sample_data/sampledData_maize2020.csv.gz
 
     * To see all available command-line options:
 
@@ -56,4 +56,4 @@ Training the Model
 Testing
 
     * Run the test suite to ensure everything is set up correctly:
-        python -m unittest discover -s tests
+        python -m unittest

@@ -42,6 +42,7 @@ class AutoencoderTrainer:
         self.random_seed = kwargs['random_seed']
         self.prop_split = kwargs['prop_split']
         self.ts = kwargs['ts']
+        self.output_loc = kwargs['output_loc']
 
         # Load and preprocess data
         self.ref_data = pd.read_csv(self.dataset_path, compression="gzip")
@@ -136,7 +137,7 @@ class AutoencoderTrainer:
         z = keras.layers.Dropout(0.3)(z)
         z = keras.layers.Dense(2024, activation="selu")(z)
         z = keras.layers.Dense(self.codings_size)(z)
-        encoder = keras.Model(inputs=[inputs], outputs=[z])
+        self.encoder = keras.Model(inputs=[inputs], outputs=[z])
 
         # Decoder layers
         decoder_inputs = keras.layers.Input(shape=[self.codings_size])
@@ -145,14 +146,14 @@ class AutoencoderTrainer:
         x = keras.layers.Dense(2500, activation="selu")(x)
         x = keras.layers.Dense(2500, activation="selu")(x)
         x = keras.layers.Dense(self.df_train.shape[1], activation="tanh")(x)
-        decoder = keras.Model(inputs=[decoder_inputs], outputs=[x])
+        self.decoder = keras.Model(inputs=[decoder_inputs], outputs=[x])
 
         # Full autoencoder model
-        codings = encoder(inputs)
-        reconstructions = decoder(codings)
-        ae = keras.Model(inputs=[inputs], outputs=[reconstructions])
-
-        return ae
+        codings = self.encoder(inputs)
+        reconstructions = self.decoder(codings)
+        self.ae = keras.Model(inputs=[inputs], outputs=[reconstructions])
+    
+        return self.ae
 
     def train(self):
         """
@@ -163,7 +164,7 @@ class AutoencoderTrainer:
         
         # Callbacks for saving the model and early stopping
         checkpoint = ModelCheckpoint(
-            f"model_mae_{self.ts}.h5",
+            f"{self.output_loc}/model_mae_{self.ts}.h5",
             verbose=1,
             monitor="val_loss",
             save_best_only=True,
@@ -189,14 +190,14 @@ class AutoencoderTrainer:
         
         # Save training and validation loss histories
         validation_loss = pd.DataFrame(history.history["val_loss"])
-        validation_loss.to_csv(f"validation_loss_{self.ts}.csv")
+        validation_loss.to_csv(f"{self.output_loc}/validation_loss_{self.ts}.csv")
         training_loss = pd.DataFrame(history.history["loss"])
-        training_loss.to_csv(f"training_loss_{self.ts}.csv")
+        training_loss.to_csv(f"{self.output_loc}/training_loss_{self.ts}.csv")
         
         # Generate and save latent variables
-        latent_variables = self.ae.encoder.predict(self.df)
-        self.ae.save_weights(f"weights_{self.ts}.h5")
-        self.ae.save(f"model_{self.ts}.h5")
+        latent_variables = self.encoder.predict(self.df)
+        self.ae.save_weights(f"{self.output_loc}/weights_{self.ts}.h5")
+        self.ae.save(f"{self.output_loc}/model_{self.ts}.h5")
         
         # Create and save a DataFrame with latent variables
         final_df = pd.DataFrame()
@@ -205,4 +206,4 @@ class AutoencoderTrainer:
             final_df[name] = latent_variables[:, i]
         final_df.insert(0, "PlotID", self.ref_data["PlotID"])
         final_df["trt"] = self.ref_data["trt"]
-        final_df.to_csv(f"LVs_Reflectance_Data_{self.ts}.csv", index=False)
+        final_df.to_csv(f"{self.output_loc}/LVs_Reflectance_Data_{self.ts}.csv", index=False)
