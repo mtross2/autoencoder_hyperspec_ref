@@ -13,15 +13,16 @@ Prerequisites
 Installation
 
 1. Clone the Repository
-    * Run the following command:
+    * Run the following commands:
 
-    git clone https://github.com/mtross2/autoencoder_hyperspec_ref.git
+    	git clone https://github.com/mtross2/autoencoder_hyperspec_ref.git
 
-    cd autoencoder_hyperspec_ref
+    	cd autoencoder_hyperspec_ref
 
 2. Set Up a Virtual Environment (Optional but recommended)
 
     * For Windows:
+
         python -m venv venv
 
         .\venv\Scripts\activate
@@ -35,11 +36,13 @@ Installation
 3. Install Required Packages
 
     * Execute the command:
+
         pip install -r requirements.txt
 
 4. Install Your Package (Optional if you want to use it as a package)
 
     * Use this command:
+
         python setup.py install
 
 Training the Model
@@ -53,8 +56,7 @@ Training the Model
             python scripts/train_autoencoder.py --dataset sample_data/sampledData_maize2020.csv.gz
 
     * To see all available command-line options:
-
-        python scripts/train_autoencoder.py --help
+	python scripts/train_autoencoder.py --help
 
 Testing
 
