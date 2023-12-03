@@ -15,8 +15,8 @@ Installation
 1. Clone the Repository
     * Run the following command:
 
-    git clone [repo-link to fill in]
-    cd your-repo
+    git clone https://github.com/mtross2/autoencoder_hyperspec_ref.git
+    cd autoencoder_hyperspec_ref
 
 2. Set Up a Virtual Environment (Optional but recommended)
 
