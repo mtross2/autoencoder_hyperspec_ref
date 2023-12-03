@@ -16,17 +16,20 @@ Installation
     * Run the following command:
 
     git clone https://github.com/mtross2/autoencoder_hyperspec_ref.git
+
     cd autoencoder_hyperspec_ref
 
 2. Set Up a Virtual Environment (Optional but recommended)
 
     * For Windows:
         python -m venv venv
+
         .\venv\Scripts\activate
 
     * For Unix or MacOS:
     
         python3 -m venv venv
+
         source venv/bin/activate
 
 3. Install Required Packages
