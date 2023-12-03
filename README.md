@@ -1,0 +1,59 @@
+Autoencoder Trainer
+Overview
+
+* This project includes a Python implementation of an autoencoder model to reduce dimensionality of hyperspectral leaf reflectance data.
+* The model is designed to preprocess the data, build an autoencoder model, and train it with a sample dataset.
+
+Getting Started
+Prerequisites
+
+* Python 3.x
+* Pip package manager
+
+Installation
+
+1. Clone the Repository
+    * Run the following command:
+
+    git clone [repo-link to fill in]
+    cd your-repo
+
+2. Set Up a Virtual Environment (Optional but recommended)
+
+    * For Windows:
+        python -m venv venv
+        .\venv\Scripts\activate
+
+    * For Unix or MacOS:
+    
+        python3 -m venv venv
+        source venv/bin/activate
+
+3. Install Required Packages
+
+    * Execute the command:
+        pip install -r requirements.txt
+
+4. Install Your Package (Optional if you want to use it as a package)
+
+    * Use this command:
+        python setup.py install
+
+Training the Model
+
+    * Prepare Your Dataset
+        * Place your dataset in the sample_data folder.
+        * Ensure it is in the correct format as expected by the AutoencoderTrainer.
+
+    * Run the Training Script
+        * Run the training script with default parameters or provide custom values.
+            python scripts/train_autoencoder.py --dataset sample_data/your_dataset_file.csv
+
+    * To see all available command-line options:
+
+        python scripts/train_autoencoder.py --help
+
+Testing
+
+    * Run the test suite to ensure everything is set up correctly:
+        python -m unittest discover -s tests
