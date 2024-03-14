@@ -69,6 +69,5 @@ for (i in my_range)
 
 }
 
-setwd('/home/mtross/Documents/Field_Maize_Hyperspectral_10.06.21/Maize_2020/Heritability')
 # Save dataframe as a csv file
 write.csv(heriData, file = "HeriData_Maize2020.csv")
