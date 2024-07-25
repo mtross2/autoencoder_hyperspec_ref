@@ -4,10 +4,7 @@ Overview
 * This project includes a Python implementation of an autoencoder model to reduce dimensionality of hyperspectral leaf reflectance data.
 * The model is designed to preprocess the data, build an autoencoder model, and train it with a sample dataset.
 * Cite:
-Tross MC, Grzybowski MW, Jubery TZ, Grove RJ, Nishimwe AV, Torres-Rodriguez JV, Guangchao S,
-Ganapathysubramanian B, Yufeng G, Schnable JC (2023) Data driven discovery and quantification of
-hyperspectral leaf reflectance phenotypes across a maize diversity panel. bioRxiv
-doi: 10.1101/2023.12.15.571950
+Tross, M. C, Grzybowski, M. W, Jubery, T. Z, Grove, R. J, Nishimwe, A. V, Torres-Rodriguez, J. V., Sun, G., Ganapathysubramanian, B., Ge, Y., & Schnable, J. C. (2024). Data driven discovery and quantification of hyperspectral leaf reflectance phenotypes across a maize diversity panel. The Plant Phenome Journal, 7, e20106. https://doi.org/10.1002/ppj2.20106
 
 Getting Started
 Prerequisites
