@@ -5,6 +5,7 @@ Overview
 * The model is designed to preprocess the data, build an autoencoder model, and train it with a sample dataset.
 * Cite:
 Tross, M. C, Grzybowski, M. W, Jubery, T. Z, Grove, R. J, Nishimwe, A. V, Torres-Rodriguez, J. V., Sun, G., Ganapathysubramanian, B., Ge, Y., & Schnable, J. C. (2024). Data driven discovery and quantification of hyperspectral leaf reflectance phenotypes across a maize diversity panel. The Plant Phenome Journal, 7, e20106. https://doi.org/10.1002/ppj2.20106
+* Trained model and data can be found at: 
 
 Getting Started
 Prerequisites
